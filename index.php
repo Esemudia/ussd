@@ -1,48 +1,47 @@
 <?php
 
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Database connection
-include "admin/config.php";
+include "config.php";
 
 // Read incoming request
-$sessionId = $_POST['sessionId'];
-$serviceCode = $_POST['serviceCode'];
-$phoneNumber = $_POST['phoneNumber'];
-$text = $_POST['text'];
+$sessionId = $_POST['sessionId'] ?? '';
+$serviceCode = $_POST['serviceCode'] ?? '';
+$phoneNumber = $_POST['phoneNumber'] ?? '';
+$text = $_POST['text'] ?? '';
 
 $response = '';
 $Myarray = [];
 $reps = [];
 
-switch ($text) {
-    case '':
-        try {
+try {
+    switch ($text) {
+        case '':
             $query = 'SELECT * FROM language';
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
 
-                     $response = 'CON What would you like to check\n';
+            $response = 'CON What would you like to check\n';
             if (count($results) > 0) {
                 foreach ($results as $row) {
-                        $keys = array_keys($row);
-                        for ($index = 1; $index < count($keys); $index++) {
-                            $response .= "$index. " . $keys[$index] . "\n";
-                        }
-                       
-                    
-                } $response .= '*. Cancel';
+                    $keys = array_keys($row);
+                    for ($index = 1; $index < count($keys); $index++) {
+                        $response .= "$index. " . $keys[$index] . "\n";
+                    }
+                }
+                $response .= '*. Cancel';
             }
-        } catch (Exception $e) {
-            error_log("Error executing query: " . $e->getMessage());
-            $response = 'END An error occurred. Please try again later.';
-        }
-        break;
+            break;
 
-    case '*':
-        $response = "END Your phone number is $phoneNumber";
-        break;
+        case '*':
+            $response = "END Your phone number is $phoneNumber";
+            break;
 
-    case '1':
-        try {
+        case '1':
             $query = 'SELECT questions FROM question WHERE language="English"';
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
@@ -71,23 +70,25 @@ switch ($text) {
 
                         // Further logic for selecting location based on state
                         if ($text === '1') {
-                            $locas=[];
+                            $locas = [];
                             $query = 'SELECT location FROM location WHERE state="' . $reps[0] . '"';
                             $stmt = $dbh->query($query);
                             $locations = $stmt->fetchAll();
-                            for
+                            foreach ($locations as $location) {
+                                $locas[] = $location['location'];
+                            }
+                            // Add logic to process locations if needed
                         }
                     }
                 }
             }
-        } catch (Exception $e) {
-            error_log("Error executing query: " . $e->getMessage());
-            $response = 'END An error occurred. Please try again later.';
-        }
-        break;
+            break;
 
-    // Add more cases as needed
-
+        // Add more cases as needed
+    }
+} catch (Exception $e) {
+    error_log("Error executing query: " . $e->getMessage());
+    $response = 'END An error occurred. Please try again later.';
 }
 
 header('Content-Type: text/plain');
