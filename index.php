@@ -92,15 +92,14 @@ $reps = [];
 // $text        = $_POST["text"];
 
 if ($text == "") {
-    // This is the first request. Note how we start the response with CON
-    $query = 'SELECT * FROM language';
+    $response = 'CON What would you like to check\n';
+    $query = 'SELECT language FROM language';
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
-
             if (count($results) > 0) {
                 foreach ($results as $row) {
                     if ($row['id'] === 'Language') {
-                        $response = 'CON What would you like to check\n';
+                        
                         $keys = array_keys($row);
                         for ($index=0; $index < count($keys); $index++) {
                             $response .= "$index. +1" . $keys[$index] . "\n";
@@ -108,6 +107,7 @@ if ($text == "") {
                         $response .= '*. Cancel';
                     }
                 }
+            }
 
 } else if ($text == "1") {
     // Business logic for first level response
