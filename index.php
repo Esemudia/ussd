@@ -30,7 +30,7 @@ try {
             if (count($results) > 0) {
                 $index=1;
                 foreach ($results as $row) {
-                    $input[]=$index++;
+                    $input[]=$index;
                     $response .= $index++ . " " . $row["language"] . "\n";
                     print_r($input);
                 }
