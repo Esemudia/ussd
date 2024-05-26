@@ -25,11 +25,11 @@ try {
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
 
-            $response = 'CON Please Chose  you like to check\n';
+            $response = "CON Please Chose  you like to check \n";
             if (count($results) > 0) {
                 $index=0;
                 foreach ($results as $row) {
-                    $response .= "$index++. " . $row["language"] . "\n";
+                    $response .= $index++ . " " . $row["language"] . "\n";
                     
                 }
                 $response .= '*. Cancel';
