@@ -32,7 +32,6 @@ try {
                 foreach ($results as $row) {
                     $input[]=$index;
                     $response .= $index++ . " " . $row["language"] . "\n";
-                    print_r($input);
                 }
                 $response .= '*. Cancel';
             }
@@ -56,7 +55,7 @@ try {
                 $response .= "2. No\n";
 
                 // Additional nested logic for text == '1*1'
-                if ($text === '1*1') {
+                if ($text === '1') {
                     $query = 'SELECT state FROM state';
                     $stmt = $dbh->query($query);
                     $result3 = $stmt->fetchAll();
