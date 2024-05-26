@@ -21,17 +21,18 @@ $reps = [];
 try {
     switch ($text) {
         case '':
-            $query = 'SELECT * FROM language';
+            $query = 'SELECT language FROM language';
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
 
-            $response = 'CON What would you like to check\n';
+            $response = 'CON Please Chose  you like to check\n';
             if (count($results) > 0) {
                 foreach ($results as $row) {
-                    $keys = array_keys($row);
-                    for ($index = 1; $index < count($keys); $index++) {
-                        $response .= "$index. " . $keys[$index] . "\n";
-                    }
+                    $response .= "$index. " . $row["language"] . "\n";
+                    // $keys = array_keys($row);
+                    // for ($index = 1; $index < count($keys); $index++) {
+                    //     $response .= "$index. " . $keys[$index] . "\n";
+                    // }
                 }
                 $response .= '*. Cancel';
             }
