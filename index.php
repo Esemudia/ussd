@@ -17,6 +17,7 @@ $text = $_POST['text'] ?? '';
 $response = '';
 $Myarray = [];
 $reps = [];
+$input=[];
 
 try {
     switch ($text) {
@@ -27,10 +28,11 @@ try {
 
             $response = "CON Please Chose  you like to check \n";
             if (count($results) > 0) {
-                $index=0;
+                $index=1;
                 foreach ($results as $row) {
+                    $input[]=$index++;
                     $response .= $index++ . " " . $row["language"] . "\n";
-                    
+                    print_r($input);
                 }
                 $response .= '*. Cancel';
             }
