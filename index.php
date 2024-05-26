@@ -27,12 +27,10 @@ try {
 
             $response = 'CON Please Chose  you like to check\n';
             if (count($results) > 0) {
+                $index=0;
                 foreach ($results as $row) {
-                    $response .= "$index. " . $row["language"] . "\n";
-                    // $keys = array_keys($row);
-                    // for ($index = 1; $index < count($keys); $index++) {
-                    //     $response .= "$index. " . $keys[$index] . "\n";
-                    // }
+                    $response .= "$index++. " . $row["language"] . "\n";
+                    
                 }
                 $response .= '*. Cancel';
             }
