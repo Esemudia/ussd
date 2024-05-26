@@ -1,7 +1,7 @@
 <?php
 
 // Database connection
-//include "config.php";
+include "config.php";
 
 // Read incoming request
 $sessionId = $_POST['sessionId'];
@@ -9,12 +9,12 @@ $serviceCode = $_POST['serviceCode'];
 $phoneNumber = $_POST['phoneNumber'];
 $text = $_POST['text'];
 
-$response = '';
+
 $Myarray = [];
 $reps = [];
 
-switch ($text) {
-    case '':
+if ($text=="") {
+    $index = 1;
         try {
             $query = 'SELECT * FROM language';
             $stmt = $dbh->query($query);
@@ -25,7 +25,7 @@ switch ($text) {
                     if ($row['id'] === 'Language') {
                         $response = 'CON What would you like to check\n';
                         $keys = array_keys($row);
-                        for ($index = 1; $index < count($keys); $index++) {
+                        for ( $index < count($keys); $index++) {
                             $response .= "$index. " . $keys[$index] . "\n";
                         }
                         $response .= '*. Cancel';
@@ -36,13 +36,7 @@ switch ($text) {
             error_log("Error executing query: " . $e->getMessage());
             $response = 'END An error occurred. Please try again later.';
         }
-        break;
-
-    case '*':
-        $response = "END Your phone number is $phoneNumber";
-        break;
-
-    case '1':
+   if($text== $index)
         try {
             $query = 'SELECT questions FROM question WHERE language="English"';
             $stmt = $dbh->query($query);
@@ -85,12 +79,12 @@ switch ($text) {
             error_log("Error executing query: " . $e->getMessage());
             $response = 'END An error occurred. Please try again later.';
         }
-        break;
-
     // Add more cases as needed
 
 }
-
+elseif ($text=="*") {
+    $response = 'END An error occurred. Please try again later.';
+}
 header('Content-Type: text/plain');
 echo $response;
 
