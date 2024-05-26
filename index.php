@@ -41,7 +41,7 @@ try {
             $response = "END Your phone number is $phoneNumber";
             break;
 
-        case '1':
+        case 1:
             $query = 'SELECT questions FROM question WHERE language="English"';
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
