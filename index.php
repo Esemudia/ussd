@@ -1,7 +1,7 @@
 <?php
 
 // Database connection
-include "config.php";
+//include "config.php";
 
 // Read incoming request
 $sessionId = $_POST['sessionId'];
