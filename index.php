@@ -7,8 +7,8 @@ $phoneNumber = $_POST['phoneNumber'];
 $text = $_POST['text'];
 
 
-// $Myarray = [];
-// $reps = [];
+$Myarray = [];
+$reps = [];
 
 // if ($text=="") {
 //     $index = 1;
