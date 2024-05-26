@@ -98,14 +98,13 @@ if ($text == "") {
             $results = $stmt->fetchAll();
             if (count($results) > 0) {
                 foreach ($results as $row) {
-                    if ($row['id'] === 'Language') {
                         
                         $keys = array_keys($row);
                         for ($index=0; $index < count($keys); $index++) {
                             $response .= "$index. +1" . $keys[$index] . "\n";
                         }
                         $response .= '*. Cancel';
-                    }
+                    
                 }
             }
 
