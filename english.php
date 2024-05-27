@@ -39,7 +39,7 @@ class english {
             if (count($result3) > 0) {
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
-                    $state[]=$row['state'];
+                    array_push($state,$row['state']);
                 }
                     $response = "CON select location \n";
                     $response .= "1. {$reps[0]}\n";
