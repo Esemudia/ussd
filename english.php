@@ -34,7 +34,6 @@ class english {
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
-                 print_r($Myarray);
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
                 }
