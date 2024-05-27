@@ -10,9 +10,9 @@ class english {
 
     public function getmenu($textarray) {
         $level = count($textarray);
-        $Myarray = [];
+     protected   $Myarray = [];
         $response = '';
-
+        $reps = [];
         if ($level == 1) {
             $query = "SELECT questions FROM question WHERE language='English'";
             $stmt = $this->dbh->query($query);
@@ -25,7 +25,7 @@ class english {
                 $response = "CON {$Myarray[0]}\n";
                 $response .= "1. Yes\n";
                 $response .= "2. No\n";
-                print_r($Myarray);
+                
             } else {
                 $response = "END No questions found for the selected language.";
             }
@@ -34,7 +34,7 @@ class english {
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
-                $reps = [];
+               
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
                 }
