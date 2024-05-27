@@ -38,6 +38,25 @@ class English {
                 $response = "END No questions found for the selected language.";
             }
         } 
+
+        if ($level == 2) {
+            $query = "SELECT questions FROM question WHERE language='English'";
+            $stmt = $this->dbh->query($query);
+            $results = $stmt->fetchAll();
+
+            if (count($results) > 0) {
+                foreach ($results as $row) {
+                    $Myarray[] = $row['questions'];
+                }
+                $_SESSION['Myarray'] = $Myarray;
+                $response = "CON {$Myarray[0]}\n";
+                $response .= "1. Yes\n";
+                $response .= "2. No\n";
+                
+            } else {
+                $response = "END No questions found for the selected language.";
+            }
+        } 
         // elseif ($level == 2) {
         //     $query = "SELECT * FROM state";
         //     $stmt = $this->dbh->query($query);
@@ -100,7 +119,7 @@ class English {
         //         }
         //     }
         // } 
-        elseif ($level == 2) {
+        elseif ($level == 3) {
             $response = "CON Select sex:\n";
             $response .= "1. Male\n";
             $response .= "2. Female\n";
