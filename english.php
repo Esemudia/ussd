@@ -60,7 +60,8 @@ class English {
             }
         } 
         elseif ($level == 3) {
-            if (isset($state[$textarray[1] - 1])) { // Corrected index
+            print_r($textarray[2]);
+            if (isset($state[$textarray[2] - 1])) { // Corrected index
                 $stateSelected = $state[$textarray[1] - 1];
                 $query = "SELECT lga FROM location WHERE state='$stateSelected'";
                 $stmt = $this->dbh->query($query);
