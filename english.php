@@ -50,7 +50,7 @@ class English {
                 $response = "END No states found.";
             }
         } elseif ($level == 3) {
-            print_r($textarray[2]);
+            print_r($this->state);
             if (isset($this->state[$textarray[2] - 1])) {
                 $stateSelected = $this->state[$textarray[2] - 1];
                 $query = "SELECT lga FROM location WHERE state='$stateSelected'";
