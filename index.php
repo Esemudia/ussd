@@ -17,7 +17,7 @@ $text = $_POST['text'] ?? '';
 $response = '';
 $Myarray = [];
 $reps = [];
-$input=[];
+$input = [];
 
 try {
     switch ($text) {
@@ -26,12 +26,12 @@ try {
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
 
-            $response = "CON Please Chose  you like to check \n";
+            $response = "CON Please choose what you would like to check:\n";
             if (count($results) > 0) {
-                $index=1;
+                $index = 1;
                 foreach ($results as $row) {
-                    $input[]=$index;
-                    $response .= $index++ . " " . $row["language"] . "\n";
+                    $input[] = $index;
+                    $response .= $index++ . ". " . $row["language"] . "\n";
                 }
                 $response .= '*. Cancel';
             }
@@ -55,32 +55,32 @@ try {
                 $response .= "2. No\n";
 
                 // Additional nested logic for text == '1*1'
-                // if ($text === '1') {
-                //     $query = 'SELECT state FROM state';
-                //     $stmt = $dbh->query($query);
-                //     $result3 = $stmt->fetchAll();
-                //     if (count($result3) > 0) {
-                //         foreach ($result3 as $row) {
-                //             $reps[] = $row['state'];
-                //         }
-                //         $response = "CON {$Myarray[1]}\n";
-                //         $response .= "1. {$reps[0]}\n";
-                //         $response .= "2. {$reps[1]}\n";
-                //         $response .= "3. {$reps[2]}\n";
+                if ($text === '1') {
+                    $query = 'SELECT state FROM state';
+                    $stmt = $dbh->query($query);
+                    $result3 = $stmt->fetchAll();
+                    if (count($result3) > 0) {
+                        foreach ($result3 as $row) {
+                            $reps[] = $row['state'];
+                        }
+                        $response = "CON {$Myarray[1]}\n";
+                        $response .= "1. {$reps[0]}\n";
+                        $response .= "2. {$reps[1]}\n";
+                        $response .= "3. {$reps[2]}\n";
 
-                //         // Further logic for selecting location based on state
-                //         if ($text === '1') {
-                //             $locas = [];
-                //             $query = 'SELECT location FROM location WHERE state="' . $reps[0] . '"';
-                //             $stmt = $dbh->query($query);
-                //             $locations = $stmt->fetchAll();
-                //             foreach ($locations as $location) {
-                //                 $locas[] = $location['location'];
-                //             }
-                //             // Add logic to process locations if needed
-                //         }
-                //     }
-                // }
+                        // Further logic for selecting location based on state
+                        if ($text === '1') {
+                            $locas = [];
+                            $query = 'SELECT location FROM location WHERE state="' . $reps[0] . '"';
+                            $stmt = $dbh->query($query);
+                            $locations = $stmt->fetchAll();
+                            foreach ($locations as $location) {
+                                $locas[] = $location['location'];
+                            }
+                            // Add logic to process locations if needed
+                        }
+                    }
+                }
             }
             break;
 
@@ -88,7 +88,7 @@ try {
     }
 } catch (Exception $e) {
     error_log("Error executing query: " . $e->getMessage());
-    $response = 'END An error occurred. Please try again later.';
+    $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();
 }
 
 header('Content-Type: text/plain');
