@@ -39,7 +39,6 @@ class English {
             }
         } 
         elseif ($level == 2) {
-           print($textarray[2]);
             $query = "SELECT * FROM state";
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
@@ -47,14 +46,11 @@ class English {
                 foreach ($result3 as $row) {
                     $state[] = $row['state'];
                 }
-                $_SESSION['state'] = $state;
-                if (isset($state[0], $state[1], $state[2])) {
-                    $response = "CON Select location:\n";
+                
+                $response = "CON Select State:\n";
                     $response .= "1. {$state[0]}\n";
                     $response .= "2. {$state[1]}\n";
                     $response .= "3. {$state[2]}\n";
-                } else {
-                    $response = "END Not enough states found.";
                 }
             } else {
                 $response = "END No states found.";

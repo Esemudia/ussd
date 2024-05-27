@@ -19,7 +19,7 @@ $phoneNumber = $_POST['phoneNumber'] ?? '';
 $text = $_POST['text'] ?? '';
 
 $menu = new English($dbh);
-$hausa= new Hausa($dbh);
+// $hausa= new Hausa($dbh);
 $response = '';
 
 try {
@@ -38,7 +38,7 @@ try {
             $response .= '0. Cancel';
         }
     } elseif ($text == '0') {
-        $response = "END Your phone number is $phoneNumber";
+        $response = "END Thanks you for your feedback";
     } else if($text=='1'){
         $response = $menu->getmenu($textarray);
     }
