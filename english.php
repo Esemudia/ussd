@@ -38,25 +38,25 @@ class English {
                 $response = "END No questions found for the selected language.";
             }
         } 
-        elseif ($level == 2) {
-            $query = "SELECT * FROM state";
-            $stmt = $this->dbh->query($query);
-            $result3 = $stmt->fetchAll();
-            if (count($result3) > 0) {
-                foreach ($result3 as $row) {
-                    $state[] = $row['state'];
-                }
+        // elseif ($level == 2) {
+        //     $query = "SELECT * FROM state";
+        //     $stmt = $this->dbh->query($query);
+        //     $result3 = $stmt->fetchAll();
+        //     if (count($result3) > 0) {
+        //         foreach ($result3 as $row) {
+        //             $state[] = $row['state'];
+        //         }
                 
-                $response = "CON Select State:\n";
-                    $response .= "1. {$state[0]}\n";
-                    $response .= "2. {$state[1]}\n";
-                    $response .= "3. {$state[2]}\n";
-                }
-            } else {
-                $response = "END No states found.";
-            }
-        } 
-        elseif ($level == 3) {
+        //         $response = "CON Select State:\n";
+        //             $response .= "1. {$state[0]}\n";
+        //             $response .= "2. {$state[1]}\n";
+        //             $response .= "3. {$state[2]}\n";
+        //         }
+        //     } else {
+        //         $response = "END No states found.";
+        //     }
+        // } 
+        elseif ($level == 2) {
             if ($textarray[2]== 1) { // Corrected index
                 $query = "SELECT lga FROM location WHERE state='Lagos'";
                 $stmt = $this->dbh->query($query);
