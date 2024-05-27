@@ -1,19 +1,18 @@
 <?php
 
-// Enable error reporting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Database connection
+
 include "config.php";
 include_once "english.php";
 include_once "hausa.php";
 
-// Start session
+
 session_start();
 
-// Read incoming request
+
 $sessionId = $_POST['sessionId'] ?? '';
 $serviceCode = $_POST['serviceCode'] ?? '';
 $phoneNumber = $_POST['phoneNumber'] ?? '';
@@ -43,9 +42,9 @@ try {
     } else if($text=='1'){
         $response = $menu->getmenu($textarray);
     }
-    else if($text=='2'){
-        $response = $hausa->getmenu($textarray);
-    }
+    // else if($text=='2'){
+    //     $response = $hausa->getmenu($textarray);
+    // }
 } catch (Exception $e) {
     error_log("Error executing query: " . $e->getMessage());
     $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();
