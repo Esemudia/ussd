@@ -1,18 +1,22 @@
 <?php
 
 class English {
+
     protected $dbh;
     protected $Myarray = [];
-    protected $state = [];
-
+    
     public function __construct($dbh) {
         $this->dbh = $dbh;
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public function getmenu($textarray) {
         $level = count($textarray);
         $response = '';
         $reps = [];
+        $state = $_SESSION['state'] ?? [];
         $lga = [];
 
         if ($level == 1) {
@@ -24,35 +28,39 @@ class English {
                 foreach ($results as $row) {
                     $this->Myarray[] = $row['questions'];
                 }
+                $_SESSION['Myarray'] = $this->Myarray;
                 $response = "CON {$this->Myarray[0]}\n";
                 $response .= "1. Yes\n";
                 $response .= "2. No\n";
+                
             } else {
                 $response = "END No questions found for the selected language.";
             }
-        } elseif ($level == 2) {
+        } 
+        elseif ($level == 2) {
             $query = 'SELECT state FROM state';
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
                 foreach ($result3 as $row) {
-                    $this->state[] = $row['state'];
+                    $state[] = $row['state'];
                 }
-                if (isset($this->state[0], $this->state[1], $this->state[2])) {
+                $_SESSION['state'] = $state;
+                if (isset($state[0], $state[1], $state[2])) {
                     $response = "CON Select location:\n";
-                    $response .= "1. {$this->state[0]}\n";
-                    $response .= "2. {$this->state[1]}\n";
-                    $response .= "3. {$this->state[2]}\n";
+                    $response .= "1. {$state[0]}\n";
+                    $response .= "2. {$state[1]}\n";
+                    $response .= "3. {$state[2]}\n";
                 } else {
                     $response = "END Not enough states found.";
                 }
             } else {
                 $response = "END No states found.";
             }
-        } elseif ($level == 3) {
-            print_r(json_encode($this->state));
-            if (isset($this->state[$textarray[2] - 1])) {
-                $stateSelected = $this->state[$textarray[2] - 1];
+        } 
+        elseif ($level == 3) {
+            if (isset($state[$textarray[2] - 1])) {
+                $stateSelected = $state[$textarray[2] - 1];
                 $query = "SELECT lga FROM location WHERE state='$stateSelected'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
@@ -68,11 +76,13 @@ class English {
             } else {
                 $response = "END Invalid state selection.";
             }
-        } elseif ($level == 4) {
+        } 
+        elseif ($level == 4) {
             $response = "CON Select sex:\n";
             $response .= "1. Male\n";
             $response .= "2. Female\n";
-        } elseif ($level == 5) {
+        } 
+        elseif ($level == 5) {
             // Additional logic for level 5
         }
 
