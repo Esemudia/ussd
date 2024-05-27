@@ -43,7 +43,7 @@ try {
     } else if($text=='1'){
         $response = $menu->getmenu($textarray);
     }
-    else{
+    else if($text=='2'){
         $response = $hausa->getmenu($textarray);
     }
 } catch (Exception $e) {
