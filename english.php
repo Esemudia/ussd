@@ -29,7 +29,8 @@ class english {
             } else {
                 $response = "END No questions found for the selected language.";
             }
-        } elseif ($level == 2) {
+        } 
+        elseif ($level == 2) {
             $query = 'SELECT state FROM state';
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
@@ -37,21 +38,60 @@ class english {
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
                 }
-                if (isset($this->Myarray[1])) {
-                    $response = "CON {$this->Myarray[1]}\n";
+                    $response = "CON select location \n";
                     $response .= "1. {$reps[0]}\n";
                     $response .= "2. {$reps[1]}\n";
                     $response .= "3. {$reps[2]}\n";
                 } else {
-                    $response = "END No further questions found.";
+                    $response = "END No states found.";
                 }
-            } else {
-                $response = "END No states found.";
-            }
+        } 
+        elseif ($level == 3) {
+            print_r($text);
+            $query = "SELECT lga FROM location where state='lagos'";
+            $stmt = $this->dbh->query($query);
+            $result3 = $stmt->fetchAll();
+            if (count($result3) > 0) {
+                foreach ($result3 as $row) {
+                    $reps[] = $row['state'];
+                }
+                    $response = "CON select location \n";
+                    $response .= "1. {$reps[0]}\n";
+                    $response .= "2. {$reps[1]}\n";
+                    $response .= "3. {$reps[2]}\n";
+                } else {
+                    $response = "END No states found.";
+                }
+        } 
+        
+        else if ($level=4) {
+                    $response = "CON Select sex \n";
+                    $response .= "1. Male\n";
+                    $response .= "2. {Female\n";
+              
         }
+        elseif ($level == 5) {
+            $query = 'SELECT state FROM state';
+            $stmt = $this->dbh->query($query);
+            $result3 = $stmt->fetchAll();
+            if (count($result3) > 0) {
+                foreach ($result3 as $row) {
+                    $reps[] = $row['state'];
+                }
+                    $response = "CON select location \n";
+                    $response .= "1. {$reps[0]}\n";
+                    $response .= "2. {$reps[1]}\n";
+                    $response .= "3. {$reps[2]}\n";
+                } else {
+                    $response = "END No states found.";
+                }
+        } 
 
         return $response;
     }
 }
+
+
+
 
 ?>
