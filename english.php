@@ -20,7 +20,7 @@ class English {
         $Myarray = $_SESSION['Myarray'] ?? [];
         $lga = [];
 
-       else if ($level == 1) {
+        if ($level == 1) {
             $query = "SELECT questions FROM question WHERE language='English'";
             $stmt = $this->dbh->query($query);
             $results = $stmt->fetchAll();
