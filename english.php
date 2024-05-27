@@ -13,6 +13,7 @@ class english {
        // $Myarray = [];
         $response = '';
         $reps = [];
+        $state=[];
         $lga = [];
         if ($level == 1) {
             $query = "SELECT questions FROM question WHERE language='English'";
@@ -38,6 +39,7 @@ class english {
             if (count($result3) > 0) {
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
+                    $state[]=$row['state'];
                 }
                     $response = "CON select location \n";
                     $response .= "1. {$reps[0]}\n";
@@ -48,10 +50,9 @@ class english {
                 }
         } 
         elseif ($level == 3) {
-            print_r($reps);
             $var = $textarray[2];
             $int= $var-1;
-            $query = "SELECT lga FROM location where state='{$reps[$int]}'";
+            $query = "SELECT lga FROM location where state='{$state[$int]}'";
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             $i=1;
