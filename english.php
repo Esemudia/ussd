@@ -3,8 +3,6 @@
 class english {
 
     protected $dbh;
-    protected $text;
-    protected $sessionId;
 
     public function __construct($dbh) {
         $this->dbh = $dbh;
@@ -27,24 +25,33 @@ class english {
                 $response = "CON {$Myarray[0]}\n";
                 $response .= "1. Yes\n";
                 $response .= "2. No\n";
+            } else {
+                $response = "END No questions found for the selected language.";
             }
         } elseif ($level == 2) {
             $query = 'SELECT state FROM state';
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
-                $id = 1;
+                $reps = [];
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
                 }
-                $response = "CON {$Myarray[1]}\n";
-                $response .= "1. {$reps[0]}\n";
-                $response .= "2. {$reps[1]}\n";
-                $response .= "3. {$reps[2]}\n";
+                if (isset($Myarray[1])) {
+                    $response = "CON {$Myarray[1]}\n";
+                    $response .= "1. {$reps[0]}\n";
+                    $response .= "2. {$reps[1]}\n";
+                    $response .= "3. {$reps[2]}\n";
+                } else {
+                    $response = "END No further questions found.";
+                }
+            } else {
+                $response = "END No states found.";
             }
         }
 
         return $response;
     }
 }
+
 ?>
