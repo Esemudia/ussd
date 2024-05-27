@@ -42,7 +42,7 @@ try {
             break;
 
         case '1':
-            $query = 'SELECT questions FROM question WHERE language='English'';
+            $query = "SELECT questions FROM question WHERE language='English'";
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
 
