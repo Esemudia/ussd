@@ -29,7 +29,7 @@ class english{
         if (count($result3) > 0) {
             $id=1;
             foreach ($result3 as $row) {
-                $reps[] = $id++ => $row['state'];
+                $reps[] =  $row['state'];
             }
             $response = "CON {$Myarray[1]}\n";
             $response .= "1. {$reps[0]}\n";
