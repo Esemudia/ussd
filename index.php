@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 // Database connection
 include "config.php";
 include_once "english.php";
+include_once "hausa.php";
 
 // Start session
 session_start();
@@ -19,6 +20,7 @@ $phoneNumber = $_POST['phoneNumber'] ?? '';
 $text = $_POST['text'] ?? '';
 
 $menu = new English($dbh);
+$hausa= new Hausa($dbh);
 $response = '';
 
 try {
@@ -38,8 +40,11 @@ try {
         }
     } elseif ($text == '0') {
         $response = "END Your phone number is $phoneNumber";
-    } else {
+    } else if($text=='1'){
         $response = $menu->getmenu($textarray);
+    }
+    else{
+        $response = $hausa->getmenu($textarray);
     }
 } catch (Exception $e) {
     error_log("Error executing query: " . $e->getMessage());
