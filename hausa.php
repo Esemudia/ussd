@@ -39,7 +39,7 @@ class Hausa {
             }
         } 
         elseif ($level == 2) {
-            $query = 'SELECT state FROM state';
+            $query ="SELECT state FROM state";
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
