@@ -39,7 +39,8 @@ class English {
             }
         } 
         elseif ($level == 2) {
-            $query = "SELECT state FROM state";
+           print($textarray[2]);
+            $query = "SELECT * FROM state";
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
@@ -60,12 +61,9 @@ class English {
             }
         } 
         elseif ($level == 3) {
-            $selectedIndex = $textarray[1] - 1;
-            if (isset($state[$selectedIndex])) { 
-                $selectedState = $state[$selectedIndex];
-                $query = "SELECT lga FROM location WHERE state=?";
-                $stmt = $this->dbh->prepare($query);
-                $stmt->execute([$selectedState]);
+            if ($textarray[2]== 1) { // Corrected index
+                $query = "SELECT lga FROM location WHERE state='Lagos'";
+                $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
                     $response = "CON Select location:\n";
@@ -76,8 +74,34 @@ class English {
                 } else {
                     $response = "END No LGAs found.";
                 }
-            } else {
-                $response = "END Invalid state selection.";
+            }
+            if ($textarray[2]== 2){
+                $query = "SELECT lga FROM location WHERE state='Abuja'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select location:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No LGAs found.";
+                }
+            }
+            if ($textarray[2]== 3){
+                $query = "SELECT lga FROM location WHERE state='Adamawa'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON  Select location:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No LGAs found.";
+                }
             }
         } 
         elseif ($level == 4) {
@@ -85,20 +109,20 @@ class English {
             $response .= "1. Male\n";
             $response .= "2. Female\n";
         } 
-        elseif ($level == 5) {
-            $query = "SELECT name FROM service_providers";
-            $stmt = $this->dbh->query($query);
-            $result3 = $stmt->fetchAll();
-            if (count($result3) > 0) {
-                $response = "CON Select service provider:\n";
-                $i = 1;
-                foreach ($result3 as $row) {
-                    $response .= $i++ . ". " . $row['name'] . "\n";
-                }
-            } else {
-                $response = "END No service providers found.";
-            }
-        }
+        // elseif ($level == 5) {
+        //     $query = "SELECT *- FROM service_providers";
+        //         $stmt = $this->dbh->query($query);
+        //         $result3 = $stmt->fetchAll();
+        //         if (count($result3) > 0) {
+        //             $response = "CON Select service provider:\n";
+        //             $i = 1;
+        //             foreach ($result3 as $row) {
+        //                 $response .= $i++ . ". " . $row['name'] . "\n";
+        //             }
+        //         } else {
+        //             $response = "END No Service provider found.";
+        //         }
+        // }
 
         return $response;
     }
