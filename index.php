@@ -79,7 +79,7 @@ try {
     $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();
 }
 
-function 
+
 
 header('Content-Type: text/plain');
 echo $response;
