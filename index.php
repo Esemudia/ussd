@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 // Database connection
 include "config.php";
-
+include_once "english.php";
 // Read incoming request
 $sessionId = $_POST['sessionId'] ?? '';
 $serviceCode = $_POST['serviceCode'] ?? '';
@@ -20,8 +20,10 @@ $reps = [];
 $input = [];
 
 try {
-    switch ($text) {
-        case '':
+    $textarray=explode("*",$text);
+    $level=$textarray;
+    if ($text=='') {
+       
             $query = 'SELECT language FROM language';
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
@@ -33,15 +35,14 @@ try {
                     $input[] = $index;
                     $response .= $index++ . ". " . $row["language"] . "\n";
                 }
-                $response .= '*. Cancel';
+                $response .= '0  Cancel';
             }
-            break;
+        }
 
-        case '*':
+       else if ($text=='0') {
             $response = "END Your phone number is $phoneNumber";
-            break;
-
-        case '1':
+        }
+       else if ($level==1) {
             $query = "SELECT questions FROM question WHERE language='English'";
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
@@ -52,18 +53,33 @@ try {
                 }
                 $response = "CON {$Myarray[0]}\n";
                 $response .= "1. Yes\n";
-                $response .= "2. No\n";             
-                // Additional nested logic for text == '1*1'
+                $response .= "2. No\n";            
                 
             }
-            break;
-
-        // Add more cases as needed
     }
+
+    elseif ($level==2) {
+        $query = 'SELECT state FROM state';
+        $stmt = $dbh->query($query);
+        $result3 = $stmt->fetchAll();
+        if (count($result3) > 0) {
+            $id=1;
+            foreach ($result3 as $row) {
+                $reps[] = $id++ => $row['state'];
+            }
+            $response = "CON {$Myarray[1]}\n";
+            $response .= "1. {$reps[0]}\n";
+            $response .= "2. {$reps[1]}\n";
+            $response .= "3. {$reps[2]}\n";
+
+    }
+   
 } catch (Exception $e) {
     error_log("Error executing query: " . $e->getMessage());
     $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();
 }
+
+function 
 
 header('Content-Type: text/plain');
 echo $response;
