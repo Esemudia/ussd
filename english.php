@@ -17,6 +17,7 @@ class English {
         $response = '';
         $reps = [];
         $state = $_SESSION['state'] ?? [];
+        $Myarray = $_SESSION['Myarray'] ?? [];
         $lga = [];
 
         if ($level == 1) {
@@ -26,10 +27,10 @@ class English {
 
             if (count($results) > 0) {
                 foreach ($results as $row) {
-                    $this->Myarray[] = $row['questions'];
+                    $Myarray[] = $row['questions'];
                 }
-                $_SESSION['Myarray'] = $this->Myarray;
-                $response = "CON {$this->Myarray[0]}\n";
+                $_SESSION['Myarray'] = $Myarray;
+                $response = "CON {$Myarray[0]}\n";
                 $response .= "1. Yes\n";
                 $response .= "2. No\n";
                 
@@ -59,8 +60,8 @@ class English {
             }
         } 
         elseif ($level == 3) {
-            if (isset($state[$textarray[2] - 1])) {
-                $stateSelected = $state[$textarray[2] - 1];
+            if (isset($state[$textarray[1] - 1])) { // Corrected index
+                $stateSelected = $state[$textarray[1] - 1];
                 $query = "SELECT lga FROM location WHERE state='$stateSelected'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
