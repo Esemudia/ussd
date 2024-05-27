@@ -41,7 +41,7 @@ try {
             $response = "END Your phone number is $phoneNumber";
             break;
 
-        case 1:
+        case '1':
             $query = 'SELECT questions FROM question WHERE language="English"';
             $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
@@ -55,32 +55,32 @@ try {
                 $response .= "2. No\n";
 
                 // Additional nested logic for text == '1*1'
-                if ($text === '1') {
-                    $query = 'SELECT state FROM state';
-                    $stmt = $dbh->query($query);
-                    $result3 = $stmt->fetchAll();
-                    if (count($result3) > 0) {
-                        foreach ($result3 as $row) {
-                            $reps[] = $row['state'];
-                        }
-                        $response = "CON {$Myarray[1]}\n";
-                        $response .= "1. {$reps[0]}\n";
-                        $response .= "2. {$reps[1]}\n";
-                        $response .= "3. {$reps[2]}\n";
+                // if ($text === '1') {
+                //     $query = 'SELECT state FROM state';
+                //     $stmt = $dbh->query($query);
+                //     $result3 = $stmt->fetchAll();
+                //     if (count($result3) > 0) {
+                //         foreach ($result3 as $row) {
+                //             $reps[] = $row['state'];
+                //         }
+                //         $response = "CON {$Myarray[1]}\n";
+                //         $response .= "1. {$reps[0]}\n";
+                //         $response .= "2. {$reps[1]}\n";
+                //         $response .= "3. {$reps[2]}\n";
 
-                        // Further logic for selecting location based on state
-                        if ($text === '1') {
-                            $locas = [];
-                            $query = 'SELECT location FROM location WHERE state="' . $reps[0] . '"';
-                            $stmt = $dbh->query($query);
-                            $locations = $stmt->fetchAll();
-                            foreach ($locations as $location) {
-                                $locas[] = $location['location'];
-                            }
-                            // Add logic to process locations if needed
-                        }
-                    }
-                }
+                //         // Further logic for selecting location based on state
+                //         if ($text === '1') {
+                //             $locas = [];
+                //             $query = 'SELECT location FROM location WHERE state="' . $reps[0] . '"';
+                //             $stmt = $dbh->query($query);
+                //             $locations = $stmt->fetchAll();
+                //             foreach ($locations as $location) {
+                //                 $locas[] = $location['location'];
+                //             }
+                //             // Add logic to process locations if needed
+                //         }
+                //     }
+                // }
             }
             break;
 
