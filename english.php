@@ -60,7 +60,6 @@ class English {
             }
         } 
         elseif ($level == 3) {
-            print_r($textarray[2]);
             if ($textarray[2]== 1) { // Corrected index
                 $query = "SELECT lga FROM location WHERE state='Lagos'";
                 $stmt = $this->dbh->query($query);
@@ -74,8 +73,23 @@ class English {
                 } else {
                     $response = "END No LGAs found.";
                 }
-            }  if ($textarray[2]== 2){
-                $query = "SELECT lga FROM location WHERE state='Lagos'";
+            }
+            if ($textarray[2]== 2){
+                $query = "SELECT lga FROM location WHERE state='Abuja'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select location:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No LGAs found.";
+                }
+            }
+            if ($textarray[2]== 3){
+                $query = "SELECT lga FROM location WHERE state='Adamawa'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
