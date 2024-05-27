@@ -21,7 +21,7 @@ $reps = [];
 $input = [];
 
 // try {
-    $textarray=explode("*",$text);
+   // $textarray=explode("*",$text);
     if ($text=='') {
        
             $query = 'SELECT language FROM language';
@@ -42,7 +42,7 @@ $input = [];
        else if ($text=='0') {
             $response = "END Your phone number is $phoneNumber";
         }
-        elseif ($textarray[0]) {
+        elseif ($text=='1') {
             $menu->getmenu($textarray)
         }
      
