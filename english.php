@@ -50,6 +50,7 @@ class english {
                 }
         } 
         elseif ($level == 3) {
+            print_r($state);
             $var = $textarray[2];
             $int= $var-1;
             $query = "SELECT lga FROM location where state='{$state[$int]}'";
