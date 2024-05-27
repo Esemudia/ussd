@@ -1,6 +1,6 @@
 <?php
 
-class English {
+class Hausa {
 
     protected $dbh;
     protected $Myarray = [];
@@ -21,7 +21,7 @@ class English {
         $lga = [];
 
         if ($level == 1) {
-            $query = "SELECT questions FROM question WHERE language='English'";
+            $query = "SELECT questions FROM question WHERE language='Hausa'";
             $stmt = $this->dbh->query($query);
             $results = $stmt->fetchAll();
 
@@ -48,7 +48,7 @@ class English {
                 }
                 $_SESSION['state'] = $state;
                 if (isset($state[0], $state[1], $state[2])) {
-                    $response = "CON Select location:\n";
+                    $response = "CON zabi jiha :\n";
                     $response .= "1. {$state[0]}\n";
                     $response .= "2. {$state[1]}\n";
                     $response .= "3. {$state[2]}\n";
@@ -65,7 +65,7 @@ class English {
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
-                    $response = "CON Select location:\n";
+                    $response = "CON zabi waje :\n";
                     $i = 1;
                     foreach ($result3 as $row) {
                         $response .= $i++ . ". " . $row['lga'] . "\n";
@@ -79,7 +79,7 @@ class English {
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
-                    $response = "CON Select location:\n";
+                    $response = "CON zabi waje :\n";
                     $i = 1;
                     foreach ($result3 as $row) {
                         $response .= $i++ . ". " . $row['lga'] . "\n";
@@ -93,7 +93,7 @@ class English {
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
-                    $response = "CON  Select location:\n";
+                    $response = "CON  zabi waje :\n";
                     $i = 1;
                     foreach ($result3 as $row) {
                         $response .= $i++ . ". " . $row['lga'] . "\n";
@@ -104,16 +104,17 @@ class English {
             }
         } 
         elseif ($level == 4) {
-            $response = "CON Select sex:\n";
-            $response .= "1. Male\n";
-            $response .= "2. Female\n";
+            $response = "CON Zabi jinsi :\n";
+            $response .= "1. namiji\n";
+            $response .= "2. ta mace\n";
+            $response .= "3. Sauran\n";
         } 
         elseif ($level == 5) {
-            $query = "SELECT *- FROM service_providers";
+            $query = "SELECT *- FROM service_providers where language='Hausa'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
-                    $response = "CON Select service provider:\n";
+                    $response = "CON Zabi irin taimakon da ake bukata:\n";
                     $i = 1;
                     foreach ($result3 as $row) {
                         $response .= $i++ . ". " . $row['name'] . "\n";
