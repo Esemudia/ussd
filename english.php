@@ -20,9 +20,9 @@ class english {
 
             if (count($results) > 0) {
                 foreach ($results as $row) {
-                    $Myarray[] = $row['questions'];
+                    $this->Myarray[] = $row['questions'];
                 }
-                $response = "CON {$Myarray[0]}\n";
+                $response = "CON {$this->Myarray[0]}\n";
                 $response .= "1. Yes\n";
                 $response .= "2. No\n";
                 
@@ -38,8 +38,8 @@ class english {
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
                 }
-                if (isset($Myarray[1])) {
-                    $response = "CON {$Myarray[1]}\n";
+                if (isset($this->Myarray[1])) {
+                    $response = "CON {$this->Myarray[1]}\n";
                     $response .= "1. {$reps[0]}\n";
                     $response .= "2. {$reps[1]}\n";
                     $response .= "3. {$reps[2]}\n";
