@@ -15,7 +15,7 @@ $serviceCode = $_POST['serviceCode'] ?? '';
 $phoneNumber = $_POST['phoneNumber'] ?? '';
 $text = $_POST['text'] ?? '';
 
-$menu = new english();
+$menu = new english($dbh);
 $response = '';
 $Myarray = [];
 $reps = [];
