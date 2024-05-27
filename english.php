@@ -38,27 +38,34 @@ class English {
                 foreach ($result3 as $row) {
                     $this->state[] = $row['state'];
                 }
-                $response = "CON Select location:\n";
-                $response .= "1. {$this->state[0]}\n";
-                $response .= "2. {$this->state[1]}\n";
-                $response .= "3. {$this->state[2]}\n";
+                if (isset($this->state[0], $this->state[1], $this->state[2])) {
+                    $response = "CON Select location:\n";
+                    $response .= "1. {$this->state[0]}\n";
+                    $response .= "2. {$this->state[1]}\n";
+                    $response .= "3. {$this->state[2]}\n";
+                } else {
+                    $response = "END Not enough states found.";
+                }
             } else {
                 $response = "END No states found.";
             }
         } elseif ($level == 3) {
-            $var = $textarray[2];
-            $int = $var - 1;
-            $query = "SELECT lga FROM location WHERE state='{$this->state[$int]}'";
-            $stmt = $this->dbh->query($query);
-            $result3 = $stmt->fetchAll();
-            if (count($result3) > 0) {
-                $response = "CON Select location:\n";
-                $i = 1;
-                foreach ($result3 as $row) {
-                    $response .= $i++ . ". " . $row['lga'] . "\n";
+            if (isset($this->state[$textarray[2] - 1])) {
+                $stateSelected = $this->state[$textarray[2] - 1];
+                $query = "SELECT lga FROM location WHERE state='$stateSelected'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select location:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No LGAs found.";
                 }
             } else {
-                $response = "END No LGAs found.";
+                $response = "END Invalid state selection.";
             }
         } elseif ($level == 4) {
             $response = "CON Select sex:\n";
