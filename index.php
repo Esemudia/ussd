@@ -42,8 +42,8 @@ try {
             break;
 
         case '1':
-            $query = 'SELECT questions FROM question WHERE language=?';
-            $stmt->execute(['English'])
+            $query = 'SELECT questions FROM question WHERE language=English';
+            $stmt = $dbh->query($query);
             $results = $stmt->fetchAll();
 
             if (count($results) > 0) {
