@@ -3,14 +3,14 @@
 class english {
 
     protected $dbh;
-
+    protected $Myarray = [];
     public function __construct($dbh) {
         $this->dbh = $dbh;
     }
 
     public function getmenu($textarray) {
         $level = count($textarray);
-        $Myarray = [];
+       // $Myarray = [];
         $response = '';
         $reps = [];
         if ($level == 1) {
@@ -34,7 +34,7 @@ class english {
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
-                print_r($Myarray);
+                // print_r($Myarray);
                 foreach ($result3 as $row) {
                     $reps[] = $row['state'];
                 }
