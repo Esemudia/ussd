@@ -47,7 +47,7 @@ class English {
                 $i = 1;
                 foreach ($result3 as $row) {
                    
-                    $response .=$i++ . " " . {$state[0]}"\n";
+                    $response .=$i++ . " " . $row['state']"\n";
                 }
                
             } else {
@@ -63,7 +63,7 @@ class English {
                     $response = "CON Select location:\n";
                     $i = 1;
                     foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                        $response .= $i++ . ". " . $row['lga'] "\n";
                     }
                 } else {
                     $response = "END No LGAs found.";
@@ -77,7 +77,7 @@ class English {
                     $response = "CON Select location:\n";
                     $i = 1;
                     foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                        $response .= $i++ . " " . $row['lga'] . "\n";
                     }
                 } else {
                     $response = "END No LGAs found.";
