@@ -31,8 +31,8 @@ class Hausa {
                 }
                 $_SESSION['Myarray'] = $Myarray;
                 $response = "CON {$Myarray[0]}\n";
-                $response .= "1. Yes\n";
-                $response .= "2. No\n";
+                $response .= "1. iya\n";
+                $response .= "2. a'a\n";
                 
             } else {
                 $response = "END No questions found for the selected language.";
