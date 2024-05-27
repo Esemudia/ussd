@@ -20,7 +20,7 @@ $Myarray = [];
 $reps = [];
 $input = [];
 
-try {
+// try {
     $textarray=explode("*",$text);
     if ($text=='') {
        
@@ -47,10 +47,11 @@ try {
         }
      
    
-} catch (Exception $e) {
-    error_log("Error executing query: " . $e->getMessage());
-    $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();
-}
+// }
+//  catch (Exception $e) {
+//     error_log("Error executing query: " . $e->getMessage());
+//     $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();
+// }
 
 
 
