@@ -43,18 +43,13 @@ class English {
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
+                $response = "CON Select location:\n";
+                $i = 1;
                 foreach ($result3 as $row) {
-                    $state[] = $row['state'];
+                   
+                    $response .=$i++ . " " . {$state[0]}"\n";
                 }
-                $_SESSION['state'] = $state;
-                if (isset($state[0], $state[1], $state[2])) {
-                    $response = "CON Select location:\n";
-                    $response .= "1. {$state[0]}\n";
-                    $response .= "2. {$state[1]}\n";
-                    $response .= "3. {$state[2]}\n";
-                } else {
-                    $response = "END Not enough states found.";
-                }
+               
             } else {
                 $response = "END No states found.";
             }
