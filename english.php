@@ -39,27 +39,25 @@ class English {
             }
         } 
         elseif ($level == 2) {
-            // Debugging statement to check textarray content
-            error_log("textarray[1]: " . print_r($textarray[1], true));
-            $query = "SELECT state FROM state";
-            $stmt = $this->dbh->query($query);
-            $result3 = $stmt->fetchAll();
-            if (count($result3) > 0) {
-                foreach ($result3 as $row) {
-                    $state[] = $row['state'];
-                }
-                $_SESSION['state'] = $state;
-                if (isset($state[0], $state[1], $state[2])) {
+            // $query = "SELECT state FROM state";
+            // $stmt = $this->dbh->query($query);
+            // $result3 = $stmt->fetchAll();
+            // if (count($result3) > 0) {
+            //     foreach ($result3 as $row) {
+            //         $state[] = $row['state'];
+            //     }
+                // $_SESSION['state'] = $state;
+                // if (isset($state[0], $state[1], $state[2])) {
                     $response = "CON Select state your language:\n";
-                    $response .= "1. {$state[0]}\n";
-                    $response .= "2. {$state[1]}\n";
-                    $response .= "3. {$state[2]}\n";
-                } else {
-                    $response = "END Not enough states found.";
-                }
-            } else {
-                $response = "END No states found.";
-            }
+                    // $response .= "1. {$state[0]}\n";
+                    // $response .= "2. {$state[1]}\n";
+                    // $response .= "3. {$state[2]}\n";
+                // } else {
+                //     $response = "END Not enough states found.";
+                // }
+            // } else {
+            //     $response = "END No states found.";
+            // }
         } 
         elseif ($level == 3) {
             if ($textarray[2]== 1) { // Corrected index
