@@ -14,9 +14,8 @@ class English {
 
     public function getmenu($textarray) {
         $level = count($textarray);
-        $response = '';
-        $reps = [];
-        $state = $_SESSION['state'] ?? [];
+        // $reps = [];
+        // $state = $_SESSION['state'] ?? [];
         $Myarray = $_SESSION['Myarray'] ?? [];
         $lga = [];
 
@@ -38,7 +37,7 @@ class English {
                 $response = "END No questions found for the selected language.";
             }
         } 
-        if ($level == 2) {
+        else if ($level == 2) {
             // $query = "SELECT state FROM state";
             // $stmt = $this->dbh->query($query);
             // $result3 = $stmt->fetchAll();

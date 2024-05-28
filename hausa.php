@@ -12,7 +12,7 @@ class Hausa {
         }
     }
 
-    public function getmenu($textarray) {
+    public function reporthausa($textarray) {
         $level = count($textarray);
         $response = '';
         $reps = [];
