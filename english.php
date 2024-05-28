@@ -64,12 +64,9 @@ class English {
         elseif ($level == 3) {
             error_log("Processing Level 3"); // Debugging statement
 
-            $selectedIndex = $textarray[1] - 1; // Corrected index for selection
-            if (isset($state[$selectedIndex])) {
-                $selectedState = $state[$selectedIndex];
-                $query = "SELECT lga FROM location WHERE state=?";
-                $stmt = $this->dbh->prepare($query);
-                $stmt->execute([$selectedState]);
+            if ($textarray[2]== 1) { // Corrected index
+                $query = "SELECT lga FROM location WHERE state='Lagos'";
+                $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
                     $response = "CON Select location:\n";
@@ -80,8 +77,34 @@ class English {
                 } else {
                     $response = "END No LGAs found.";
                 }
-            } else {
-                $response = "END Invalid state selection.";
+            }
+            if ($textarray[2]== 2){
+                $query = "SELECT lga FROM location WHERE state='Abuja'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select location:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No LGAs found.";
+                }
+            }
+            if ($textarray[2]== 3){
+                $query = "SELECT lga FROM location WHERE state='Adamawa'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON  Select location:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No LGAs found.";
+                }
             }
         } 
         elseif ($level == 4) {
