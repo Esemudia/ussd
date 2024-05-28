@@ -30,7 +30,7 @@ try {
         $stmt = $dbh->query($query);
         $results = $stmt->fetchAll();
 
-        $response = "CON Please choose what you would like to check:\n";
+        $response = "CON Please choose your language:\n";
         if (count($results) > 0) {
             $index = 1;
             foreach ($results as $row) {
