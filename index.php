@@ -47,7 +47,7 @@ try {
         else if($text=="2"){
             $response= $hausa->reporthausa($textarray);
         }
-    }
+    
 } catch (Exception $e) {
     error_log("Error executing query: " . $e->getMessage());
     $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();
