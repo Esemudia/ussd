@@ -138,7 +138,7 @@ class English {
         } 
         if($level=6){
             $response = "CON Submit:\n";
-            $response .="1. Submit"
+            $response .="1. Submit";
         }
 
         else {
