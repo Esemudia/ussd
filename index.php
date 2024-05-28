@@ -42,7 +42,7 @@ try {
         $response = "END Thanks you for your feedback";
     } 
     else if($text=='1'){
-        english($textarray);
+       $response= english($textarray);
     }
     else if($text=='2'){
         $response = $hausa->reporthausa($textarray);
