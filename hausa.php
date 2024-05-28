@@ -135,7 +135,7 @@ class Hausa {
             $response .="1. iya";
         }
         elseif ($level==7) {
-            $response="CON Na gode da amsa ku.\n";
+            $response="END Na gode da amsa ku.\n";
         }
         
         else {

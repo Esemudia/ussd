@@ -136,7 +136,7 @@ class English {
             $response .="1. Submit";
         }
         elseif ($leve==7) {
-            $response = "CON Thank you for your response.\n";
+            $response = "END Thank you for your response.\n";
         }
 
         else {
