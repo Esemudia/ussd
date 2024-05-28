@@ -15,10 +15,8 @@ class English {
     public function getmenu($textarray) {
         $level = count($textarray);
         $response = '';
-        $reps = [];
         $state = $_SESSION['state'] ?? [];
         $Myarray = $_SESSION['Myarray'] ?? [];
-        $lga = [];
 
         error_log("Level: $level"); // Debugging statement
 
@@ -66,7 +64,7 @@ class English {
         elseif ($level == 3) {
             error_log("Processing Level 3"); // Debugging statement
 
-            $selectedIndex = $textarray[1] - 1; // Use the correct index for selection
+            $selectedIndex = $textarray[1] - 1; // Corrected index for selection
             if (isset($state[$selectedIndex])) {
                 $selectedState = $state[$selectedIndex];
                 $query = "SELECT lga FROM location WHERE state=?";
@@ -108,6 +106,8 @@ class English {
             } else {
                 $response = "END No service providers found.";
             }
+        } else {
+            $response = "END Invalid selection.";
         }
 
         return $response;

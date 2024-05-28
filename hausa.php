@@ -15,10 +15,10 @@ class Hausa {
     public function reporthausa($textarray) {
         $level = count($textarray);
         $response = '';
-        $reps = [];
         $state = $_SESSION['state'] ?? [];
         $Myarray = $_SESSION['Myarray'] ?? [];
-        $lga = [];
+
+        error_log("Level: $level"); // Debugging statement
 
         if ($level == 1) {
             $query = "SELECT questions FROM question WHERE language='Hausa'";
@@ -39,7 +39,9 @@ class Hausa {
             }
         } 
         elseif ($level == 2) {
-            $query ="SELECT state FROM state";
+            error_log("Processing Level 2"); // Debugging statement
+
+            $query = "SELECT state FROM state";
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
@@ -60,9 +62,14 @@ class Hausa {
             }
         } 
         elseif ($level == 3) {
-            if ($textarray[2]== 1) { // Corrected index
-                $query = "SELECT lga FROM location WHERE state='Lagos'";
-                $stmt = $this->dbh->query($query);
+            error_log("Processing Level 3"); // Debugging statement
+
+            $selectedIndex = $textarray[1] - 1; // Corrected index for selection
+            if (isset($state[$selectedIndex])) {
+                $selectedState = $state[$selectedIndex];
+                $query = "SELECT lga FROM location WHERE state=?";
+                $stmt = $this->dbh->prepare($query);
+                $stmt->execute([$selectedState]);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
                     $response = "CON zabi waje :\n";
@@ -73,59 +80,38 @@ class Hausa {
                 } else {
                     $response = "END No LGAs found.";
                 }
-            }
-            if ($textarray[2]== 2){
-                $query = "SELECT lga FROM location WHERE state='Abuja'";
-                $stmt = $this->dbh->query($query);
-                $result3 = $stmt->fetchAll();
-                if (count($result3) > 0) {
-                    $response = "CON zabi waje :\n";
-                    $i = 1;
-                    foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['lga'] . "\n";
-                    }
-                } else {
-                    $response = "END No LGAs found.";
-                }
-            }
-            if ($textarray[2]== 3){
-                $query = "SELECT lga FROM location WHERE state='Adamawa'";
-                $stmt = $this->dbh->query($query);
-                $result3 = $stmt->fetchAll();
-                if (count($result3) > 0) {
-                    $response = "CON  zabi waje :\n";
-                    $i = 1;
-                    foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['lga'] . "\n";
-                    }
-                } else {
-                    $response = "END No LGAs found.";
-                }
+            } else {
+                $response = "END Invalid state selection.";
             }
         } 
         elseif ($level == 4) {
+            error_log("Processing Level 4"); // Debugging statement
+
             $response = "CON Zabi jinsi :\n";
             $response .= "1. namiji\n";
             $response .= "2. ta mace\n";
             $response .= "3. Sauran\n";
         } 
         elseif ($level == 5) {
-            $query = "SELECT *- FROM service_providers where language='Hausa'";
-                $stmt = $this->dbh->query($query);
-                $result3 = $stmt->fetchAll();
-                if (count($result3) > 0) {
-                    $response = "CON Zabi irin taimakon da ake bukata:\n";
-                    $i = 1;
-                    foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['name'] . "\n";
-                    }
-                } else {
-                    $response = "END No Service provider found.";
+            error_log("Processing Level 5"); // Debugging statement
+
+            $query = "SELECT name FROM service_providers WHERE language='Hausa'";
+            $stmt = $this->dbh->query($query);
+            $result3 = $stmt->fetchAll();
+            if (count($result3) > 0) {
+                $response = "CON Zabi irin taimakon da ake bukata:\n";
+                $i = 1;
+                foreach ($result3 as $row) {
+                    $response .= $i++ . ". " . $row['name'] . "\n";
                 }
+            } else {
+                $response = "END No Service provider found.";
+            }
+        } else {
+            $response = "END Invalid selection.";
         }
 
         return $response;
     }
 }
-
 ?>
