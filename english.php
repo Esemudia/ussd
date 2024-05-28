@@ -118,7 +118,7 @@ class English {
         elseif ($level == 5) {
             error_log("Processing Level 5"); // Debugging statement
 
-            $query = "SELECT name FROM service_providers";
+            $query = "SELECT name FROM service_providers where language='English'";
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
