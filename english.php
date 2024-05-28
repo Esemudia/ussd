@@ -37,7 +37,7 @@ class English {
                 $response = "END No questions found for the selected language.";
             }
         } 
-        else if ($level == 2) {
+        else if ($level == 2 || $textarray[1]="1") {
             // $query = "SELECT state FROM state";
             // $stmt = $this->dbh->query($query);
             // $result3 = $stmt->fetchAll();
