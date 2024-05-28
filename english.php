@@ -39,27 +39,33 @@ class English {
             }
         } 
         elseif ($level == 2) {
-            error_log("Processing Level 2"); // Debugging statement
-
-            $query = "SELECT state FROM state";
-            $stmt = $this->dbh->query($query);
-            $result3 = $stmt->fetchAll();
-            if (count($result3) > 0) {
-                foreach ($result3 as $row) {
-                    $state[] = $row['state'];
-                }
-                $_SESSION['state'] = $state;
-                if (isset($state[0], $state[1], $state[2])) {
-                    $response = "CON Select state your language:\n";
-                    $response .= "1. {$state[0]}\n";
-                    $response .= "2. {$state[1]}\n";
-                    $response .= "3. {$state[2]}\n";
+             error_log("Processing Level 2"); // Debugging statement
+            if($textarray[1]=1){
+                
+                $query = "SELECT state FROM state";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    foreach ($result3 as $row) {
+                        $state[] = $row['state'];
+                    }
+                    $_SESSION['state'] = $state;
+                    if (isset($state[0], $state[1], $state[2])) {
+                        $response = "CON Select state your language:\n";
+                        $response .= "1. {$state[0]}\n";
+                        $response .= "2. {$state[1]}\n";
+                        $response .= "3. {$state[2]}\n";
+                    } else {
+                        $response = "END Not enough states found.";
+                    }
                 } else {
-                    $response = "END Not enough states found.";
+                    $response = "END No states found.";
                 }
-            } else {
-                $response = "END No states found.";
             }
+            else {
+                $response = "END Thanks You.";
+            }
+
         } 
         elseif ($level == 3) {
             error_log("Processing Level 3"); // Debugging statement
@@ -129,7 +135,13 @@ class English {
             } else {
                 $response = "END No service providers found.";
             }
-        } else {
+        } 
+        if($level=6){
+            $response = "CON Submit:\n";
+            $response .="1. Submit"
+        }
+
+        else {
             $response = "END Invalid selection.";
         }
 

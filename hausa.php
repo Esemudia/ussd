@@ -107,7 +107,12 @@ class Hausa {
             } else {
                 $response = "END No Service provider found.";
             }
-        } else {
+        } elseif ($level == 6)
+        {
+
+        }
+        
+        else {
             $response = "END Invalid selection.";
         }
 
