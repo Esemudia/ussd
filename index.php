@@ -40,12 +40,11 @@ try {
         }
     } elseif ($text == '0') {
         $response = "END Your phone number is $phoneNumber";
-    } else  {
-        if($text=="1"){
-            
+    } else  if($text=="1"){
+     
             $response = $menu->getmenu($textarray);
         }
-        else{
+        else if($text=="2"){
             $response= $hausa->reporthausa($textarray);
         }
     }

@@ -136,7 +136,7 @@ class English {
                 $response = "END No service providers found.";
             }
         } 
-        if($level=6){
+        elseif($level=6){
             $response = "CON Submit:\n";
             $response .="1. Submit";
         }
