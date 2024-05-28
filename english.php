@@ -40,8 +40,7 @@ class English {
         } 
         elseif ($level == 2) {
              error_log("Processing Level 2"); // Debugging statement
-            if($textarray[1]=1){
-                
+              
                 $query = "SELECT state FROM state";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
@@ -61,11 +60,7 @@ class English {
                 } else {
                     $response = "END No states found.";
                 }
-            }
-            else {
-                $response = "END Thanks You.";
-            }
-
+            
         } 
         elseif ($level == 3) {
             error_log("Processing Level 3"); // Debugging statement
