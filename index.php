@@ -20,7 +20,7 @@ $phoneNumber = $_POST['phoneNumber'] ?? '';
 $text = $_POST['text'] ?? '';
 
 $menu = new English($dbh);
-$hausa= new Hausa($dbh);
+$hausa = new Hausa($dbh);
 $response = '';
 
 try {
@@ -40,14 +40,16 @@ try {
         }
     } elseif ($text == '0') {
         $response = "END Your phone number is $phoneNumber";
-    } else  if($text=="1"){
-     
+    } else {
+        $selectedLanguage = $textarray[0];
+        if ($selectedLanguage == '1') {
             $response = $menu->getmenu($textarray);
+        } elseif ($selectedLanguage == '2') {
+            $response = $hausa->reporthausa($textarray);
+        } else {
+            $response = 'END Invalid selection. Please try again.';
         }
-        else if($text=="2"){
-            $response= $hausa->reporthausa($textarray);
-        }
-    
+    }
 } catch (Exception $e) {
     error_log("Error executing query: " . $e->getMessage());
     $response = 'END An error occurred. Please try again later. Details: ' . $e->getMessage();

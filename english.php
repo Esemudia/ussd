@@ -50,7 +50,7 @@ class English {
                     }
                     $_SESSION['state'] = $state;
                     if (isset($state[0], $state[1], $state[2])) {
-                        $response = "CON Select state your language:\n";
+                        $response = "CON Select your state:\n";
                         $response .= "1. {$state[0]}\n";
                         $response .= "2. {$state[1]}\n";
                         $response .= "3. {$state[2]}\n";
