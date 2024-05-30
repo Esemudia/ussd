@@ -1,6 +1,5 @@
 <?php
-session_start();
-$_SESSION['statearray'];
+
 class English {
 
     protected $dbh;
