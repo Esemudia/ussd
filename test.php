@@ -1,11 +1,11 @@
 <?php
-
+session_start();
 class English {
 
     protected $dbh;
     protected $Myarray = [];
-    protected $state = [];
-
+    $sta
+    
     public function __construct($dbh) {
         $this->dbh = $dbh;
         if (session_status() === PHP_SESSION_NONE) {
@@ -14,11 +14,14 @@ class English {
     }
 
     public function getmenu($textarray) {
+        $Tstate=["Lagos","Abuja","Adamawa"];
+        $Tlagos=["Ikeja","Island"];
+        $Tabuja=["AMAC","Gwagwalada","Bwari"];
+        $Tadamawa=["Gombi","Hong","Mubi","Yola","Mayo belwa","Numan"];
         $level = count($textarray);
         $response = '';
+        $state = $_SESSION['state'] ?? [];
         $Myarray = $_SESSION['Myarray'] ?? [];
-        $_SESSION['statearray'] = $_SESSION['statearray'] ?? [];
-
         error_log("Level: $level"); // Debugging statement
 
         if ($level == 1) {
@@ -34,60 +37,64 @@ class English {
                 $response = "CON {$Myarray[0]}\n";
                 $response .= "1. Yes\n";
                 $response .= "2. No\n";
+                
             } else {
                 $response = "END No questions found for the selected language.";
             }
-        } elseif ($level == 2) {
-            error_log("Processing Level 2"); // Debugging statement
-            $query = "SELECT state FROM state";
-            $stmt = $this->dbh->query($query);
-            $result3 = $stmt->fetchAll();
-            if (count($result3) > 0) {
-                foreach ($result3 as $row) {
-                    $this->state[] = $row['state'];
-                }
-                $_SESSION['statearray'] = $this->state;
-
-                $response = "CON Select your state:\n";
-                for ($i = 0; $i < count($_SESSION['statearray']); $i++) {
-                    $response .= ($i + 1) . ". {$_SESSION['statearray'][$i]}\n";
-                }
-            } else {
-                $response = "END No states found.";
-            }
-        } elseif ($level == 3) {
-            error_log("Processing Level 3"); // Debugging statement
-            if (isset($this->state) && count($this->state) > 0) {
-                $retarray = $this->state;
-                $val = intval($textarray[2]) - 1;
-                if (isset($retarray[$val])) {
-                    $query = "SELECT lga FROM location WHERE state=?";
-                    $stmt = $this->dbh->prepare($query);
-                    $stmt->execute([$retarray[$val]]);
-                    $result3 = $stmt->fetchAll();
-                    if (count($result3) > 0) {
-                        $response = "CON Select location:\n";
-                        $i = 1;
-                        foreach ($result3 as $row) {
-                            $response .= $i++ . ". " . $row['lga'] . "\n";
-                        }
+        } 
+        elseif ($level == 2) {
+             error_log("Processing Level 2"); // Debugging statement
+              
+                $query = "SELECT state FROM state";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    foreach ($result3 as $row) {
+                        $state[] = $row['state'];
+                    }
+                    $_SESSION['state'] = $state;
+                    if (isset($state[0], $state[1], $state[2])) {
+                        $response = "CON Select your state:\n";
+                        $response .= "1. {$state[0]}\n";
+                        $response .= "2. {$state[1]}\n";
+                        $response .= "3. {$state[2]}\n";
                     } else {
-                        $response = "END No LGAs found.";
+                        $response = "END Not enough states found.";
                     }
                 } else {
-                    $response = "END Invalid state selection.";
+                    $response = "END No states found.";
                 }
-            } else {
-                $response = "END State array not found.";
-            }
-        } elseif ($level == 4) {
+            
+        } 
+        elseif ($level == 3) {
+            error_log("Processing Level 3"); // Debugging statement
+
+            $val =$textarray[2]- 1; // Corrected index
+                $query = "SELECT lga FROM location WHERE state='$Tstate[$val]'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select location:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No LGAs found.";
+                }
+            
+        } 
+        elseif ($level == 4) {
             error_log("Processing Level 4"); // Debugging statement
+
             $response = "CON Select sex:\n";
             $response .= "1. Male\n";
             $response .= "2. Female\n";
-        } elseif ($level == 5) {
+        } 
+        elseif ($level == 5) {
             error_log("Processing Level 5"); // Debugging statement
-            $query = "SELECT name FROM service_providers WHERE language='English'";
+
+            $query = "SELECT name FROM service_providers where language='English'";
             $stmt = $this->dbh->query($query);
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
@@ -99,12 +106,57 @@ class English {
             } else {
                 $response = "END No service providers found.";
             }
-        } elseif ($level == 6) {
-            $response = "CON Select:\n";
-            $response .= "1. Submit";
-        } elseif ($level == 7) {
+        } 
+        elseif($level=6){
+            $val =$textarray[2]- 1;
+            $str =$textarray[3]- 1
+            if($val==0){
+                $query = "SELECT name,phone  FROM location WHERE lga='$Tlagos[$str]' and language='English'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select service:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['name'] . "\n";
+                    }
+                } else {
+                    $response = "END No service found.";
+                }
+            } else if($val==1){
+                $query = "SELECT name,phone  FROM location WHERE lga='$Tabuja[$str]' and language='English'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select service:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No service found.";
+                }
+            }else if($val==2){
+                $query = "SELECT name,phone  FROM location WHERE lga='$Tadamawa[$str]' and language='English'";
+                $stmt = $this->dbh->query($query);
+                $result3 = $stmt->fetchAll();
+                if (count($result3) > 0) {
+                    $response = "CON Select service:\n";
+                    $i = 1;
+                    foreach ($result3 as $row) {
+                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                    }
+                } else {
+                    $response = "END No service found.";
+                }
+            }
+           
+        }
+        elseif ($leve==7) {
             $response = "END Thank you for your response.\n";
-        } else {
+        }
+
+        else {
             $response = "END Invalid selection.";
         }
 
