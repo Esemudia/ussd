@@ -17,6 +17,7 @@ class English {
         $level = count($textarray);
         $response = '';
         $Myarray = $_SESSION['Myarray'] ?? [];
+        $_SESSION['statearray']=""??[];
 
         error_log("Level: $level"); // Debugging statement
 
