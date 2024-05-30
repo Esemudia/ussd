@@ -17,7 +17,7 @@ class English {
         $level = count($textarray);
         $response = '';
         $Myarray = $_SESSION['Myarray'] ?? [];
-        $_SESSION['statearray']=""??[];
+        $_SESSION['statearray'] = $_SESSION['statearray'] ?? [];
 
         error_log("Level: $level"); // Debugging statement
 
@@ -44,36 +44,43 @@ class English {
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
                 foreach ($result3 as $row) {
-                    $state[]= $row['state'];
+                    $state[] = $row['state'];
                 }
                 $_SESSION['statearray'] = $state;
-                
-                    $response = "CON Select your state:\n";
-                    $response .= "1. {$state[0]}\n";
-                    $response .= "2. {$state[1]}\n";
-                    $response .= "3. {$state[2]}\n";
-               
+
+                $response = "CON Select your state:\n";
+                $response .= "1. {$state[0]}\n";
+                $response .= "2. {$state[1]}\n";
+                $response .= "3. {$state[2]}\n";
+
             } else {
                 $response = "END No states found.";
             }
         } elseif ($level == 3) {
             error_log("Processing Level 3"); // Debugging statement
-            if (isset($_SESSION['statearray'])) { // Corrected index
-                $retarray=$_SESSION['statearray'];
-                $val=$textarray[2]-1;
-                $query = "SELECT lga FROM location WHERE state='$retarray[$val]'";
-                $stmt = $this->dbh->query($query);
-                $result3 = $stmt->fetchAll();
-                if (count($result3) > 0) {
-                    $response = "CON Select location:\n";
-                    $i = 1;
-                    foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['lga'] . "\n";
+            if (isset($_SESSION['statearray']) && count($_SESSION['statearray']) > 0) { // Corrected index
+                $retarray = $_SESSION['statearray'];
+                $val = intval($textarray[2]) - 1; // Safely convert to integer
+                if (isset($retarray[$val])) {
+                    $query = "SELECT lga FROM location WHERE state=?";
+                    $stmt = $this->dbh->prepare($query);
+                    $stmt->execute([$retarray[$val]]);
+                    $result3 = $stmt->fetchAll();
+                    if (count($result3) > 0) {
+                        $response = "CON Select location:\n";
+                        $i = 1;
+                        foreach ($result3 as $row) {
+                            $response .= $i++ . ". " . $row['lga'] . "\n";
+                        }
+                    } else {
+                        $response = "END No LGAs found.";
                     }
                 } else {
-                    $response = "END No LGAs found.";
+                    $response = "END Invalid state selection.";
                 }
-            } 
+            } else {
+                $response = "END State array not found.";
+            }
         } elseif ($level == 4) {
             error_log("Processing Level 4"); // Debugging statement
             $response = "CON Select sex:\n";
