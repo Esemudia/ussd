@@ -17,6 +17,7 @@ class English {
         $Tlagos=["Ikeja","Island"];
         $Tabuja=["AMAC","Gwagwalada","Bwari"];
         $Tadamawa=["Gombi","Hong","Mubi","Yola","Mayo belwa","Numan"];
+        $providers=["Police","Hospital","Lawyer","counsellor or social worker"];
         $level = count($textarray);
         $response = '';
         $state = $_SESSION['state'] ?? [];
@@ -109,8 +110,9 @@ class English {
         elseif($level=6){
             $val =$textarray[2]- 1;
             $str =$textarray[3]- 1;
+            $pro= $textarray[4]-1;
             if($val==0){
-                $query = "SELECT name,phone  FROM providers WHERE lga='$Tlagos[$str]' and language='English'";
+                $query = "SELECT name,phone  FROM providers WHERE lga='$Tlagos[$str]' and services='$providers[$pro]' and language='English'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
@@ -123,27 +125,27 @@ class English {
                     $response = "END No service found.";
                 }
             } else if($val==1){
-                $query = "SELECT name,phone  FROM providers WHERE lga='$Tabuja[$str]' and language='English'";
+                $query = "SELECT name,phone  FROM providers WHERE lga='$Tabuja[$str]' and services='$providers[$pro]'  and language='English'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
                     $response = "CON Select service:\n";
                     $i = 1;
                     foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                        $response .= $i++ . ". " . $row['name'] . "\n";
                     }
                 } else {
                     $response = "END No service found.";
                 }
             }else if($val==2){
-                $query = "SELECT name,phone  FROM providers WHERE lga='$Tadamawa[$str]' and language='English'";
+                $query = "SELECT name,phone  FROM providers WHERE lga='$Tadamawa[$str]' and services='$providers[$pro]'  and language='English'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
                     $response = "CON Select service:\n";
                     $i = 1;
                     foreach ($result3 as $row) {
-                        $response .= $i++ . ". " . $row['lga'] . "\n";
+                        $response .= $i++ . ". " . $row['name'] . "\n";
                     }
                 } else {
                     $response = "END No service found.";
@@ -152,8 +154,14 @@ class English {
            
         }
         elseif ($leve==7) {
-            $response = "END Thank you for your response.\n";
-        }
+
+            $response = "CON Confirm to submit.\n";
+            $response .="1. Submit"
+        } 
+        elseif ($leve==8) {
+
+            $response = "END Thank you a provider will reach out.\n";
+        } 
 
         else {
             $response = "END Invalid selection.";
