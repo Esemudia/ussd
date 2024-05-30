@@ -47,14 +47,12 @@ class English {
                     $state= $row['state'];
                 }
                 $_SESSION['statearray'] = $state;
-                if (isset($state[0], $state[1], $state[2])) {
+                
                     $response = "CON Select your state:\n";
                     $response .= "1. {$state[0]}\n";
                     $response .= "2. {$state[1]}\n";
                     $response .= "3. {$state[2]}\n";
-                } else {
-                    $response = "END Not enough states found.";
-                }
+               
             } else {
                 $response = "END No states found.";
             }
