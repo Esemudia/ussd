@@ -17,7 +17,6 @@ class English {
         $level = count($textarray);
         $response = '';
         $Myarray = $_SESSION['Myarray'] ?? [];
-        $state = [];
 
         error_log("Level: $level"); // Debugging statement
 
@@ -44,7 +43,7 @@ class English {
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
                 foreach ($result3 as $row) {
-                    $state= $row['state'];
+                    $state[]= $row['state'];
                 }
                 $_SESSION['statearray'] = $state;
                 
