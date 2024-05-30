@@ -49,8 +49,8 @@ class English {
                 $_SESSION['statearray'] = $this->state;
 
                 $response = "CON Select your state:\n";
-                for ($i = 0; $i < count($this->state); $i++) {
-                    $response .= ($i + 1) . ". {$this->state[$i]}\n";
+                for ($i = 0; $i < count($_SESSION['statearray']); $i++) {
+                    $response .= ($i + 1) . ". {$_SESSION['statearray'][$i]}\n";
                 }
             } else {
                 $response = "END No states found.";
