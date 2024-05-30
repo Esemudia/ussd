@@ -4,7 +4,7 @@ class English {
 
     protected $dbh;
     protected $Myarray = [];
-    $sta
+    
     
     public function __construct($dbh) {
         $this->dbh = $dbh;
