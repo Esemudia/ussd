@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 // Database connection
 include "config.php";
-include_once "english.php";
+include_once "test.php";
 include_once "hausa.php";
 
 // Start session

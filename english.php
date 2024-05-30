@@ -1,9 +1,10 @@
 <?php
-
+session_start();
 class English {
 
     protected $dbh;
     protected $Myarray = [];
+    $sta
     
     public function __construct($dbh) {
         $this->dbh = $dbh;
@@ -132,7 +133,7 @@ class English {
             }
         } 
         elseif($level=6){
-            $response = "CON Submit:\n";
+            $response = "CON Select :\n";
             $response .="1. Submit";
         }
         elseif ($leve==7) {
