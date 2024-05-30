@@ -156,7 +156,7 @@ class English {
         elseif ($leve==7) {
 
             $response = "CON Confirm to submit.\n";
-            $response .="1. Submit"
+            $response .="1. Submit";
         } 
         elseif ($leve==8) {
 
