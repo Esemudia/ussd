@@ -110,7 +110,7 @@ class English {
             $val =$textarray[2]- 1;
             $str =$textarray[3]- 1;
             if($val==0){
-                $query = "SELECT name,phone  FROM location WHERE lga='$Tlagos[$str]' and language='English'";
+                $query = "SELECT name,phone  FROM providers WHERE lga='$Tlagos[$str]' and language='English'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
@@ -123,7 +123,7 @@ class English {
                     $response = "END No service found.";
                 }
             } else if($val==1){
-                $query = "SELECT name,phone  FROM location WHERE lga='$Tabuja[$str]' and language='English'";
+                $query = "SELECT name,phone  FROM providers WHERE lga='$Tabuja[$str]' and language='English'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
@@ -136,7 +136,7 @@ class English {
                     $response = "END No service found.";
                 }
             }else if($val==2){
-                $query = "SELECT name,phone  FROM location WHERE lga='$Tadamawa[$str]' and language='English'";
+                $query = "SELECT name,phone  FROM providers WHERE lga='$Tadamawa[$str]' and language='English'";
                 $stmt = $this->dbh->query($query);
                 $result3 = $stmt->fetchAll();
                 if (count($result3) > 0) {
