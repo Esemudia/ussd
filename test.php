@@ -44,23 +44,22 @@ class English {
             $result3 = $stmt->fetchAll();
             if (count($result3) > 0) {
                 foreach ($result3 as $row) {
-                    $state[] = $row['state'];
+                    $this->state[] = $row['state'];
                 }
-                $_SESSION['statearray'] = $state;
+                $_SESSION['statearray'] = $this->state;
 
                 $response = "CON Select your state:\n";
-                $response .= "1. {$state[0]}\n";
-                $response .= "2. {$state[1]}\n";
-                $response .= "3. {$state[2]}\n";
-
+                for ($i = 0; $i < count($this->state); $i++) {
+                    $response .= ($i + 1) . ". {$this->state[$i]}\n";
+                }
             } else {
                 $response = "END No states found.";
             }
         } elseif ($level == 3) {
             error_log("Processing Level 3"); // Debugging statement
-            if (isset($_SESSION['statearray']) && count($_SESSION['statearray']) > 0) { // Corrected index
+            if (isset($_SESSION['statearray']) && count($_SESSION['statearray']) > 0) {
                 $retarray = $_SESSION['statearray'];
-                $val = intval($textarray[2]) - 1; // Safely convert to integer
+                $val = intval($textarray[2]) - 1;
                 if (isset($retarray[$val])) {
                     $query = "SELECT lga FROM location WHERE state=?";
                     $stmt = $this->dbh->prepare($query);
