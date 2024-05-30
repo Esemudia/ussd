@@ -57,8 +57,8 @@ class English {
             }
         } elseif ($level == 3) {
             error_log("Processing Level 3"); // Debugging statement
-            if (isset($_SESSION['statearray']) && count($_SESSION['statearray']) > 0) {
-                $retarray = $_SESSION['statearray'];
+            if (isset($this->state;) && count($this->state;) > 0) {
+                $retarray = $this->state;;
                 $val = intval($textarray[2]) - 1;
                 if (isset($retarray[$val])) {
                     $query = "SELECT lga FROM location WHERE state=?";
