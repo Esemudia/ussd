@@ -109,7 +109,7 @@ class English {
         } 
         elseif($level=6){
             $val =$textarray[2]- 1;
-            $str =$textarray[3]- 1
+            $str =$textarray[3]- 1;
             if($val==0){
                 $query = "SELECT name,phone  FROM location WHERE lga='$Tlagos[$str]' and language='English'";
                 $stmt = $this->dbh->query($query);
